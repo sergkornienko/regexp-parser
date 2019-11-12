@@ -1,0 +1,19 @@
+{
+  "name": "regexp-parser",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sergkornienko/regexp-parser.git"
+  },
+  "author": "serhiiko",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/sergkornienko/regexp-parser/issues"
+  },
+  "homepage": "https://github.com/sergkornienko/regexp-parser#readme"
+}
