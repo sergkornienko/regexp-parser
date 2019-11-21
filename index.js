@@ -159,10 +159,39 @@ const stringDateToTime = (strDate) => {
   }
 }
 
+const numStrToArray = (str) => {
+  if (!str || typeof str !== 'string') {
+    return;
+  }
+
+  const [firstCharacter] = str;
+  const isFirstStr = isNaN(Number(firstCharacter));
+  const numStrReg = '((\\d+(\\.|\\,)\\d+)|\\d+)((.|\\s)[a-zA-Z]+)';
+  const strNumReg = '([a-zA-Z ]+)((\\d+(\\.|\\,)\\d+)|\\d+)';
+  const reg = isFirstStr ? strNumReg : numStrReg;  
+  const regExp = new RegExp(reg, 'gm');
+  const results = str.match(regExp);
+  
+  if (!results) {
+    return;
+  }
+  
+  return results.map((res) => {
+    const num = toNumber(res);
+    const text = res.replace(/[^a-zA-Z]/gm, '');
+
+    return {
+      num,
+      text,
+    };
+  });
+}
+
 module.exports = {
   toNumber,
   getTextBetween,
   getNumberAfterStr,
   stringPriceToNumber,
   stringDateToTime,
+  numStrToArray,
 }

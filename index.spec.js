@@ -1,4 +1,4 @@
-const regexp = require('./regexp.js');
+const regexp = require('./index');
 
 describe('behavior of regexp.toNumber function', () => {
   test('return correct result when parameter is not string', () => {
@@ -270,6 +270,133 @@ describe('behavior of regexp.stringDateToTime function', () => {
     test('return time when in parameter extra dots', () => {
       let testVal = '15.12.1088.67.144';
       expect(regexp.stringDateToTime(testVal)).toBe(-27803095324000);
+    });
+  });
+});
+
+describe('behavior of regexp.numStrToArray function', () => {
+  describe('check parameters', () => {
+    test('return correct result when parameter is not string', () => {
+      let testVal = undefined;
+      expect(regexp.numStrToArray(testVal)).toBeUndefined();
+  
+      testVal = 5;
+      expect(regexp.numStrToArray(testVal)).toBeUndefined();
+  
+      testVal = {};
+      expect(regexp.numStrToArray(testVal)).toBeUndefined();
+  
+      testVal = ['a'];
+      expect(regexp.numStrToArray(testVal)).toBeUndefined();
+    });
+
+    test('return undefined when parameter is empty string', () => {
+      let testVal = '';
+      expect(regexp.numStrToArray(testVal)).toBeUndefined();
+    });
+
+    test('return undefined when parameter without num', () => {
+      let testVal = 'just some text';
+      expect(regexp.numStrToArray(testVal)).toBeUndefined();
+    });
+
+    test('return undefined when parameter without str', () => {
+      let testVal = '7856.45 556';
+      expect(regexp.numStrToArray(testVal)).toBeUndefined();
+    });
+  });
+
+  describe('finding pairs num.str', () => {
+    test('return correct array when only one pair and num first', () => {
+      let testVal = '6.211.Dzeko';
+      expect(regexp.numStrToArray(testVal)).toMatchObject([
+        {
+          text: 'Dzeko',
+          num: 6.211,
+        },
+      ]);
+    });
+
+    test('return correct array when only one pair and str first', () => {
+      let testVal = 'Emerson7.48.';
+      expect(regexp.numStrToArray(testVal)).toMatchObject([
+        {
+          text: 'Emerson',
+          num: 7.48,
+        },
+      ]);
+
+      testVal = 'Anderson5.8. Fin';
+      expect(regexp.numStrToArray(testVal)).toMatchObject([
+        {
+          text: 'Anderson',
+          num: 5.8,
+        },
+      ]);
+
+      testVal = 'hipster 6 Meh';
+      expect(regexp.numStrToArray(testVal)).toMatchObject([
+        {
+          text: 'hipster',
+          num: 6,
+        },
+      ]);
+    });
+
+    test('return correct array when in str first str', () => {
+      let testVal = 'Sehic6.64.Kvrzic6.43.';
+      expect(regexp.numStrToArray(testVal)).toMatchObject([
+        {
+          text: 'Sehic',
+          num: 6.64,
+        },
+        {
+          text: 'Kvrzic',
+          num: 6.43,
+        },
+      ]);
+    });
+
+    test('return correct array when in str first num', () => {
+      let testVal = '5.87.Besic 5.813.Cimirot ';
+      expect(regexp.numStrToArray(testVal)).toMatchObject([
+        {
+          text: 'Besic',
+          num: 5.87,
+        },
+        {
+          text: 'Cimirot',
+          num: 5.813,
+        },
+      ]);
+    });
+    
+    test('return correct array when in str first str with extra str in the end', () => {
+      let testVal = 'Tonali7.420.Bernardeschi  8.59.Belotti';
+      expect(regexp.numStrToArray(testVal)).toMatchObject([
+        {
+          text: 'Tonali',
+          num: 7.42,
+        },
+        {
+          text: 'Bernardeschi',
+          num: 8.59,
+        },
+      ]);
+    });
+
+    test('return correct array when in str first num with extra num in the end', () => {
+      let testVal = '7.47.Florenzi7.019.Bonucci 56';
+      expect(regexp.numStrToArray(testVal)).toMatchObject([
+        {
+          text: 'Florenzi',
+          num: 7.47,
+        },
+        {
+          text: 'Bonucci',
+          num: 7.019,
+        },
+      ]);
     });
   });
 });
