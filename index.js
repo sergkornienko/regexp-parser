@@ -147,20 +147,22 @@ const stringDateToTime = (strDate) => {
 
 
   if (wordFormat) {
-    const [month] = MONTHS.filter((e) =>  e.rus === wordFormat.match(/[а-яА-Я]+/gm)[0]);
+    const [month] = MONTHS.filter((e) => e.rus === wordFormat.match(/[а-яА-Я]+/gm)[0]);
     const strDateNew = wordFormat.replace('.', '').replace(month.rus, month.eng);
 
     return (new Date(strDateNew)).getTime();
   } else if (dotFormat) {
-    const month = MONTHS[toNumber(dotFormat.match(/\.\d{2}\./gm)[0].replace('.', '')) - 1];      
-    const strDateNew = dotFormat.replace(/\.\d{2}\./gm, ` ${month.eng} `);   
-     
+    const month = MONTHS[toNumber(dotFormat.match(/\.\d{2}\./gm)[0].replace('.', '')) - 1];
+    const strDateNew = dotFormat.replace(/\.\d{2}\./gm, ` ${month.eng} `);
+
     return (new Date(strDateNew)).getTime();
   }
 }
 
 const numStrToArray = (str) => {
-  if (!str || typeof str !== 'string') {
+  if (typeof str === 'number') {
+    return [{ num: str, text: undefined }];
+  } else if (!str || typeof str !== 'string') {
     return;
   }
 
@@ -168,22 +170,26 @@ const numStrToArray = (str) => {
   const isFirstStr = isNaN(Number(firstCharacter));
   const numStrReg = '((\\d+(\\.|\\,)\\d+)|\\d+)((.|\\s)[a-zA-Z]+)';
   const strNumReg = '([a-zA-Z ]+)((\\d+(\\.|\\,)\\d+)|\\d+)';
-  const reg = isFirstStr ? strNumReg : numStrReg;  
+  const reg = isFirstStr ? strNumReg : numStrReg;
   const regExp = new RegExp(reg, 'gm');
   const results = str.match(regExp);
-  
+
   if (!results) {
-    return;
+    const num = toNumber(str) || undefined;
+    const text = str
+      .replace(String(num), '')
+      .replace(/\d/gm, '')
+      .trim()
+      || undefined;
+
+    return [{ num, text }];
   }
-  
+
   return results.map((res) => {
     const num = toNumber(res);
     const text = res.replace(/[^a-zA-Z]/gm, '');
 
-    return {
-      num,
-      text,
-    };
+    return { num, text };
   });
 }
 

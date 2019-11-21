@@ -274,14 +274,19 @@ describe('behavior of regexp.stringDateToTime function', () => {
   });
 });
 
-describe('behavior of regexp.numStrToArray function', () => {
+describe.only('behavior of regexp.numStrToArray function', () => {
   describe('check parameters', () => {
     test('return correct result when parameter is not string', () => {
       let testVal = undefined;
       expect(regexp.numStrToArray(testVal)).toBeUndefined();
   
       testVal = 5;
-      expect(regexp.numStrToArray(testVal)).toBeUndefined();
+      expect(regexp.numStrToArray(testVal)).toMatchObject([
+        { 
+          num: 5, 
+          text: undefined,
+        },
+      ]);
   
       testVal = {};
       expect(regexp.numStrToArray(testVal)).toBeUndefined();
@@ -290,19 +295,39 @@ describe('behavior of regexp.numStrToArray function', () => {
       expect(regexp.numStrToArray(testVal)).toBeUndefined();
     });
 
+    test('return not full object when parameter without num', () => {
+      let testVal = 'just some text';
+      expect(regexp.numStrToArray(testVal)).toMatchObject([
+        { 
+          num: undefined, 
+          text: 'just some text',
+        },
+      ]);
+    });
+
     test('return undefined when parameter is empty string', () => {
       let testVal = '';
       expect(regexp.numStrToArray(testVal)).toBeUndefined();
     });
 
-    test('return undefined when parameter without num', () => {
+    test('return not full object when parameter without num', () => {
       let testVal = 'just some text';
-      expect(regexp.numStrToArray(testVal)).toBeUndefined();
+      expect(regexp.numStrToArray(testVal)).toMatchObject([
+        { 
+          num: undefined, 
+          text: 'just some text',
+        },
+      ]);
     });
 
     test('return undefined when parameter without str', () => {
       let testVal = '7856.45 556';
-      expect(regexp.numStrToArray(testVal)).toBeUndefined();
+      expect(regexp.numStrToArray(testVal)).toMatchObject([
+        { 
+          num: 7856.45, 
+          text: undefined,
+        },
+      ]);
     });
   });
 
