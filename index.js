@@ -1,50 +1,51 @@
 const MONTHS = [
   {
     eng: 'Jan',
-    rus: 'янв'
+    rus: 'янв',
   },
   {
     eng: 'Feb',
-    rus: 'февр'
+    rus: 'февр',
   },
   {
     eng: 'Mar',
-    rus: 'марта'
+    rus: 'марта',
   },
   {
     eng: 'Apr',
-    rus: 'апр'
+    rus: 'апр',
   },
   {
     eng: 'May',
-    rus: 'мая'
+    rus: 'мая',
   },
   {
     eng: 'Jun',
-    rus: 'июня'
+    rus: 'июня',
   },
   {
     eng: 'Jul',
-    rus: 'июля'
+    rus: 'июля',
   },
   {
     eng: 'Aug',
-    rus: 'авг'
-  }, {
+    rus: 'авг',
+  }, 
+  {
     eng: 'Sept',
-    rus: 'сент'
+    rus: 'сент',
   },
   {
     eng: 'Oct',
-    rus: 'окт'
+    rus: 'окт',
   }, {
     eng: 'Nov',
-    rus: 'нояб'
+    rus: 'нояб',
   },
   {
     eng: 'Dec',
-    rus: 'дек'
-  }
+    rus: 'дек',
+  },
 ];
 
 const toNumber = (str) => {
@@ -57,7 +58,7 @@ const toNumber = (str) => {
 
   const [newNum] = str.replace(/\,/g, '.').match(/(\d+(\.)\d+)|\d+/g) || [];
   return Number(newNum);
-}
+};
 
 const getTextBetween = (allText, firstText, secondText, thirdText) => {
   if (!allText) {
@@ -73,7 +74,7 @@ const getTextBetween = (allText, firstText, secondText, thirdText) => {
   [draftText] = draftText.replace(/\s+/g, ' ').split(endText);
 
   return draftText.trim();
-}
+};
 
 const getNumberAfterStr = (allText, word) => {
   if (!allText) {
@@ -91,14 +92,14 @@ const getNumberAfterStr = (allText, word) => {
   number = toNumber(number);
 
   return number;
-}
+};
 
 const stringPriceToNumber = (str) => {
   if (typeof str === 'number') {
     return str;
   }
   if (typeof str !== 'string') {
-    return undefined;
+    return;
   }
 
   /**
@@ -114,15 +115,15 @@ const stringPriceToNumber = (str) => {
   const shourtcuts = [
     {
       name: ' Тыс',
-      val: 1000
+      val: 1000,
     },
     {
       name: ' Млн',
-      val: 1000000
+      val: 1000000,
     },
     {
       name: ' Млрд',
-      val: 1000000000
+      val: 1000000000,
     },
   ];
 
@@ -135,7 +136,7 @@ const stringPriceToNumber = (str) => {
   });
 
   return price;
-}
+};
 
 const stringDateToTime = (strDate) => {
   if (typeof strDate !== 'string') {
@@ -157,7 +158,7 @@ const stringDateToTime = (strDate) => {
 
     return (new Date(strDateNew)).getTime();
   }
-}
+};
 
 const numStrToArray = (str) => {
   if (typeof str === 'number') {
@@ -191,7 +192,7 @@ const numStrToArray = (str) => {
 
     return { num, text };
   });
-}
+};
 
 module.exports = {
   toNumber,
@@ -200,4 +201,4 @@ module.exports = {
   stringPriceToNumber,
   stringDateToTime,
   numStrToArray,
-}
+};
