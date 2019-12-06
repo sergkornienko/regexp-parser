@@ -194,6 +194,21 @@ const numStrToArray = (str) => {
   });
 };
 
+const strToDate = (str) => {
+  if (!str || typeof str !== 'string' || !str.match(/\d{2}-\d{2}-\d{4}/gm)) {
+    return;
+  }
+
+  const [date, month] = str.match(/\d{2}/gm);
+  const [year] = str.match(/\d{4}/gm);
+  console.log({date, month});
+  
+
+  return (date && month && year) 
+    ? new Date(year, month - 1, date) 
+    : undefined;
+}
+
 module.exports = {
   toNumber,
   getTextBetween,
@@ -201,4 +216,5 @@ module.exports = {
   stringPriceToNumber,
   stringDateToTime,
   numStrToArray,
+  strToDate,
 };

@@ -274,23 +274,23 @@ describe('behavior of regexp.stringDateToTime function', () => {
   });
 });
 
-describe.only('behavior of regexp.numStrToArray function', () => {
+describe('behavior of regexp.numStrToArray function', () => {
   describe('check parameters', () => {
     test('return correct result when parameter is not string', () => {
       let testVal = undefined;
       expect(regexp.numStrToArray(testVal)).toBeUndefined();
-  
+
       testVal = 5;
       expect(regexp.numStrToArray(testVal)).toMatchObject([
-        { 
-          num: 5, 
+        {
+          num: 5,
           text: undefined,
         },
       ]);
-  
+
       testVal = {};
       expect(regexp.numStrToArray(testVal)).toBeUndefined();
-  
+
       testVal = ['a'];
       expect(regexp.numStrToArray(testVal)).toBeUndefined();
     });
@@ -298,8 +298,8 @@ describe.only('behavior of regexp.numStrToArray function', () => {
     test('return not full object when parameter without num', () => {
       let testVal = 'just some text';
       expect(regexp.numStrToArray(testVal)).toMatchObject([
-        { 
-          num: undefined, 
+        {
+          num: undefined,
           text: 'just some text',
         },
       ]);
@@ -313,8 +313,8 @@ describe.only('behavior of regexp.numStrToArray function', () => {
     test('return not full object when parameter without num', () => {
       let testVal = 'just some text';
       expect(regexp.numStrToArray(testVal)).toMatchObject([
-        { 
-          num: undefined, 
+        {
+          num: undefined,
           text: 'just some text',
         },
       ]);
@@ -323,8 +323,8 @@ describe.only('behavior of regexp.numStrToArray function', () => {
     test('return undefined when parameter without str', () => {
       let testVal = '7856.45 556';
       expect(regexp.numStrToArray(testVal)).toMatchObject([
-        { 
-          num: 7856.45, 
+        {
+          num: 7856.45,
           text: undefined,
         },
       ]);
@@ -395,7 +395,7 @@ describe.only('behavior of regexp.numStrToArray function', () => {
         },
       ]);
     });
-    
+
     test('return correct array when in str first str with extra str in the end', () => {
       let testVal = 'Tonali7.420.Bernardeschi  8.59.Belotti';
       expect(regexp.numStrToArray(testVal)).toMatchObject([
@@ -422,6 +422,48 @@ describe.only('behavior of regexp.numStrToArray function', () => {
           num: 7.019,
         },
       ]);
+    });
+  });
+});
+
+describe.only('behavior of regexp.strToDate function', () => {
+  describe('check parameters', () => {
+    test('return correct result when parameter is not string', () => {
+      let testVal = undefined;
+      expect(regexp.strToDate(testVal)).toBeUndefined();
+
+      testVal = 5;
+      expect(regexp.strToDate(testVal)).toBeUndefined();
+
+      testVal = {};
+      expect(regexp.strToDate(testVal)).toBeUndefined();
+
+      testVal = ['a'];
+      expect(regexp.strToDate(testVal)).toBeUndefined();
+    });
+
+    test('return undefined when parameter is empty string', () => {
+      let testVal = '';
+      expect(regexp.strToDate(testVal)).toBeUndefined();
+    });
+
+    test('return undefined when parameter is wrong string', () => {
+      let testVal = '12-4-3434';
+      expect(regexp.strToDate(testVal)).toBeUndefined();
+
+      testVal = '03-14-343';
+      expect(regexp.strToDate(testVal)).toBeUndefined();
+
+      testVal = '1-15-2020';
+      expect(regexp.strToDate(testVal)).toBeUndefined();
+    });
+
+  });
+  describe('return correct result when correct string', () => {
+    test('return undefined when parameter is correct string', () => {
+      const testVal = '01-12-2019';
+      const date = new Date(2019, 11, 1);
+      expect(regexp.strToDate(testVal)).toEqual(date);
     });
   });
 });
