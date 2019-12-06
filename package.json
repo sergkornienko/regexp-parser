@@ -19,5 +19,8 @@
   "homepage": "https://github.com/sergkornienko/regexp-parser#readme",
   "devDependencies": {
     "eslint": "^6.6.0"
+  },
+  "dependencies": {
+    "jest": "^24.9.0"
   }
 }
