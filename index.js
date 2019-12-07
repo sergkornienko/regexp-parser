@@ -201,8 +201,6 @@ const strToDate = (str) => {
 
   const [date, month] = str.match(/\d{2}/gm);
   const [year] = str.match(/\d{4}/gm);
-  console.log({date, month});
-  
 
   return (date && month && year) 
     ? new Date(year, month - 1, date) 
