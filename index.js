@@ -205,7 +205,7 @@ const strToDate = (str) => {
   return (date && month && year) 
     ? new Date(year, month - 1, date) 
     : undefined;
-}
+};
 
 module.exports = {
   toNumber,
