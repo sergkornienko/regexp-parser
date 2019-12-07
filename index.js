@@ -48,6 +48,12 @@ const MONTHS = [
   },
 ];
 
+/**
+ * Find number in the string and returns it
+ *
+ * @param {string} str Text in which should be founded number
+ * @returns {number|undefined}
+ */
 const toNumber = (str) => {
   if (typeof str === 'number') {
     return str;
@@ -60,6 +66,16 @@ const toNumber = (str) => {
   return Number(newNum);
 };
 
+/**
+ * Find middle part of the string between 1 & 2 breakpoints
+ * in case if second breakpoint don't exist find between 1 & 3 
+ * 
+ * @param {string} allText String in whish searched middle part
+ * @param {string} firstText First text breakpoint
+ * @param {string} secondText Second breakpoint
+ * @param {string} thirdText Third breakpoint
+ * @returns {string|undefined}
+ */
 const getTextBetween = (allText, firstText, secondText, thirdText) => {
   if (!allText) {
     return;
@@ -76,6 +92,13 @@ const getTextBetween = (allText, firstText, secondText, thirdText) => {
   return draftText.trim();
 };
 
+/**
+ * Find number after text breakpoint
+ *
+ * @param {string} allText Text in which should be founded number
+ * @param {string} word Text breakpoint
+ * @returns {number|undefined}
+ */
 const getNumberAfterStr = (allText, word) => {
   if (!allText) {
     return;
@@ -94,6 +117,16 @@ const getNumberAfterStr = (allText, word) => {
   return number;
 };
 
+/**
+ * Convert price from formats: 
+ *    <number Тыс $>
+ *    <number Млн $>
+ *    <number Млрд $>
+ * to normal number
+ * 
+ * @param {string} str String with price
+ * @returns {number|undefined}
+ */
 const stringPriceToNumber = (str) => {
   if (typeof str === 'number') {
     return str;
@@ -138,6 +171,15 @@ const stringPriceToNumber = (str) => {
   return price;
 };
 
+/**
+ * Convert date string from formats
+ *    DD.MM.YYYY
+ *    DD month YYYY (russian)
+ * to Date.getTime() format
+ * 
+ * @param {string} strDate
+ * @returns {number|undefined}
+ */
 const stringDateToTime = (strDate) => {
   if (typeof strDate !== 'string') {
     return;
@@ -160,6 +202,30 @@ const stringDateToTime = (strDate) => {
   }
 };
 
+/**
+ * @typedef {Object} TextNum
+ * @property {string} text
+ * @property {number} num
+ */
+
+/**
+ * Find all pairs of (string and numbers) and (number and strings)
+ * depends on what is first
+ * Example: 
+ *    Sehic6.64.Kvrzic6.43. => [
+ *      {
+ *        str: 'Sehic', 
+ *        num: '6.64'
+ *      },
+ *      {
+ *        str: 'Kvrzic', 
+ *        num: '6.43'
+ *      },
+ *    ]
+ *
+ * @param {string} str
+ * @returns {Array<TextNum>|undefined}
+ */
 const numStrToArray = (str) => {
   if (typeof str === 'number') {
     return [{ num: str, text: undefined }];
@@ -194,6 +260,12 @@ const numStrToArray = (str) => {
   });
 };
 
+/**
+ * Convert string of format DD-MM-YYYY to Date
+ *
+ * @param {string} str
+ * @returns {Object<Date>|undefined}
+ */
 const strToDate = (str) => {
   if (!str || typeof str !== 'string' || !str.match(/\d{2}-\d{2}-\d{4}/gm)) {
     return;
