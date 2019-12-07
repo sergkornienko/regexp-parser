@@ -2,7 +2,7 @@
 ## Installation
 ``` npm i serhiiko-regexp-parser```
 ## Usage
-Import npm module 
+Import npm module  
 ```const regexp = require('serhiiko-regexp-parser');```
 ## Functions
 1. regexp.toNumber(str)
