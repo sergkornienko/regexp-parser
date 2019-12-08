@@ -55,6 +55,7 @@ Import npm module
 /**
  * Convert date string from formats
  *    DD.MM.YYYY
+ *    DD-MM-YYYY
  *    DD month YYYY (russian)
  * to Date.getTime() format
  * 
@@ -88,12 +89,4 @@ Import npm module
  * @property {number} num
  */
  ```
- 7. regexp.strToDate(str)
-```
-/**
- * Convert string of format DD-MM-YYYY to Date
- *
- * @param {string} str
- * @returns {Object<Date>|undefined}
- */
- ```
+ 
