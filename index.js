@@ -174,6 +174,7 @@ const stringPriceToNumber = (str) => {
 /**
  * Convert date string from formats
  *    DD.MM.YYYY
+ *    DD-MM-YYYY
  *    DD month YYYY (russian)
  * to Date.getTime() format
  * 
@@ -187,7 +188,7 @@ const stringDateToTime = (strDate) => {
 
   const [wordFormat] = strDate.match(/\d{2}\s([а-яА-Я]*)(\s|.\s)\d{4}/gm) || [false];
   const [dotFormat] = strDate.match(/\d{2}\.\d{2}\.\d{4}/gm) || [false];
-
+  const [lineFormat] = strDate.match(/\d{2}\-\d{2}\-\d{4}/gm) || [false];
 
   if (wordFormat) {
     const [month] = MONTHS.filter((e) => e.rus === wordFormat.match(/[а-яА-Я]+/gm)[0]);
@@ -199,7 +200,12 @@ const stringDateToTime = (strDate) => {
     const strDateNew = dotFormat.replace(/\.\d{2}\./gm, ` ${month.eng} `);
 
     return (new Date(strDateNew)).getTime();
-  }
+  } else if (lineFormat) {
+    const month = MONTHS[toNumber(lineFormat.match(/\-\d{2}\-/gm)[0].replace('-', '')) - 1];
+    const strDateNew = lineFormat.replace(/\-\d{2}\-/gm, ` ${month.eng} `);
+
+    return (new Date(strDateNew)).getTime();
+  } 
 };
 
 /**
@@ -260,25 +266,6 @@ const numStrToArray = (str) => {
   });
 };
 
-/**
- * Convert string of format DD-MM-YYYY to Date
- *
- * @param {string} str
- * @returns {Object<Date>|undefined}
- */
-const strToDate = (str) => {
-  if (!str || typeof str !== 'string' || !str.match(/\d{2}-\d{2}-\d{4}/gm)) {
-    return;
-  }
-
-  const [date, month] = str.match(/\d{2}/gm);
-  const [year] = str.match(/\d{4}/gm);
-
-  return (date && month && year) 
-    ? new Date(year, month - 1, date) 
-    : undefined;
-};
-
 module.exports = {
   toNumber,
   getTextBetween,
@@ -286,5 +273,4 @@ module.exports = {
   stringPriceToNumber,
   stringDateToTime,
   numStrToArray,
-  strToDate,
 };

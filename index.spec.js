@@ -240,20 +240,34 @@ describe('behavior of regexp.stringPriceToNumber function', () => {
   });
 });
 
-describe('behavior of regexp.stringDateToTime function', () => {
-  test('return correct result when parameter is not string', () => {
-    let testVal = undefined;
-    expect(regexp.stringDateToTime(testVal)).toBeUndefined();
+describe.only('behavior of regexp.stringDateToTime function', () => {
+  describe('correct behavior when wrong parameters', () => {
+    test('return correct result when parameter is not string', () => {
+      let testVal = undefined;
+      expect(regexp.stringDateToTime(testVal)).toBeUndefined();
+  
+      testVal = 5;
+      expect(regexp.stringDateToTime(testVal)).toBeUndefined();
+  
+      testVal = {};
+      expect(regexp.stringDateToTime(testVal)).toBeUndefined();
+  
+      testVal = ['a'];
+      expect(regexp.stringDateToTime(testVal)).toBeUndefined();
+    });
 
-    testVal = 5;
-    expect(regexp.stringDateToTime(testVal)).toBeUndefined();
-
-    testVal = {};
-    expect(regexp.stringDateToTime(testVal)).toBeUndefined();
-
-    testVal = ['a'];
-    expect(regexp.stringDateToTime(testVal)).toBeUndefined();
+    test('return undefined when parameter is wrong string', () => {
+      let testVal = '12-4-3434';
+      expect(regexp.stringDateToTime(testVal)).toBeUndefined();
+  
+      testVal = '03-14-343';
+      expect(regexp.stringDateToTime(testVal)).toBeUndefined();
+  
+      testVal = '1-15-2020';
+      expect(regexp.stringDateToTime(testVal)).toBeUndefined();
+    });
   });
+
   describe('behavior of parameter format: DD month YYYY', () => {
     test('return time when string with russian month', () => {
       let testVal = '09 июня 2010 г.';
@@ -270,6 +284,14 @@ describe('behavior of regexp.stringDateToTime function', () => {
     test('return time when in parameter extra dots', () => {
       let testVal = '15.12.1088.67.144';
       expect(regexp.stringDateToTime(testVal)).toBe(-27803095324000);
+    });
+  });
+
+  describe('behavior of parameter format: DD-MM-YYYY', () => {
+    test('return date.time when parameter is correct string', () => {
+      const testVal = '01-12-2019';
+      const date = (new Date(2019, 11, 1)).getTime();
+      expect(regexp.stringDateToTime(testVal)).toEqual(date);
     });
   });
 });
@@ -422,48 +444,6 @@ describe('behavior of regexp.numStrToArray function', () => {
           num: 7.019,
         },
       ]);
-    });
-  });
-});
-
-describe.only('behavior of regexp.strToDate function', () => {
-  describe('check parameters', () => {
-    test('return correct result when parameter is not string', () => {
-      let testVal = undefined;
-      expect(regexp.strToDate(testVal)).toBeUndefined();
-
-      testVal = 5;
-      expect(regexp.strToDate(testVal)).toBeUndefined();
-
-      testVal = {};
-      expect(regexp.strToDate(testVal)).toBeUndefined();
-
-      testVal = ['a'];
-      expect(regexp.strToDate(testVal)).toBeUndefined();
-    });
-
-    test('return undefined when parameter is empty string', () => {
-      let testVal = '';
-      expect(regexp.strToDate(testVal)).toBeUndefined();
-    });
-
-    test('return undefined when parameter is wrong string', () => {
-      let testVal = '12-4-3434';
-      expect(regexp.strToDate(testVal)).toBeUndefined();
-
-      testVal = '03-14-343';
-      expect(regexp.strToDate(testVal)).toBeUndefined();
-
-      testVal = '1-15-2020';
-      expect(regexp.strToDate(testVal)).toBeUndefined();
-    });
-
-  });
-  describe('return correct result when correct string', () => {
-    test('return undefined when parameter is correct string', () => {
-      const testVal = '01-12-2019';
-      const date = new Date(2019, 11, 1);
-      expect(regexp.strToDate(testVal)).toEqual(date);
     });
   });
 });
