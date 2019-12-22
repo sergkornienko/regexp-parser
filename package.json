@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "jest --watch",
+    "test": "jest",
+    "test-watch": "jest --watch",
     "eslint": "eslint index.js --fix"
   },
   "repository": {
