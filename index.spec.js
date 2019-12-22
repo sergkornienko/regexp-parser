@@ -287,7 +287,7 @@ describe('behavior of regexp.stringDateToTime function', () => {
     });
   });
 
-  describe('behavior of parameter format: DD-MM-YYYY', () => {
+  describe.skip('behavior of parameter format: DD-MM-YYYY', () => {
     test('return date.time when parameter is correct string', () => {
       const testVal = '01-12-2019';
       const date = (new Date(2019, 11, 1)).getTime();
