@@ -6,7 +6,7 @@
   "scripts": {
     "test": "jest",
     "test-watch": "jest --watch",
-    "eslint": "eslint index.js --fix"
+    "eslint": "eslint *.js --fix"
   },
   "repository": {
     "type": "git",
