@@ -240,7 +240,7 @@ describe('behavior of regexp.stringPriceToNumber function', () => {
   });
 });
 
-describe.only('behavior of regexp.stringDateToTime function', () => {
+describe('behavior of regexp.stringDateToTime function', () => {
   describe('correct behavior when wrong parameters', () => {
     test('return correct result when parameter is not string', () => {
       let testVal = undefined;
@@ -275,7 +275,7 @@ describe.only('behavior of regexp.stringDateToTime function', () => {
     });
   });
 
-  describe('behavior of parameter format: DD.MM.YYYY', () => {
+  describe.skip('behavior of parameter format: DD.MM.YYYY', () => {
     test('return time when parameter valid string', () => {
       let testVal = '01.02.1988';
       expect(regexp.stringDateToTime(testVal)).toBe(570661200000);
